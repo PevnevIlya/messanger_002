@@ -3,23 +3,33 @@ package com.example.relaxation.ui.utils
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.relaxation.ui.classes.User
+import com.example.relaxation.databinding.FragmentChatsBinding
 import com.squareup.picasso.Picasso
 
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
+    lateinit var binding: FragmentChatsBinding
     private var userList = emptyList<String>()
-    class UserViewHolder(view: View): RecyclerView.ViewHolder(view)
+    class UserViewHolder(binding: FragmentChatsBinding): RecyclerView.ViewHolder(binding.root)
+    {
+        init {
+            binding.recyclerView.setOnClickListener{
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    OnItemClick(position)
+                }
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(com.example.relaxation.R.layout.item_user_layout, parent, false)
-        return UserViewHolder(view)
+        binding = FragmentChatsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UserViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -39,6 +49,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_PHOTO_URL).addListenerForSingleValueEvent(AppValueEventListener{
             Picasso.get().load(it.getValue().toString()).into(profileImage)
         })
+
         Log.d("Test", userList[position])
     }
 

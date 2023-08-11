@@ -25,11 +25,14 @@ class ChatsFragment : Fragment() {
     }
 
     private fun init() {
-
         val list = USER.userList
         recyclerView = binding.recyclerView
         adapter = UserAdapter()
         recyclerView.adapter = adapter
         adapter.setList(list)
+    }
+
+    public fun OnItemClick(){
+        
     }
 }
