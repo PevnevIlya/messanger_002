@@ -28,7 +28,7 @@ class ChatsFragment : Fragment() {
     }
 
     private fun init() {
-        val list = USER.UserList
+        val list = USER.userList.toMutableList()
         recyclerView = binding.recyclerView
         adapter = UserAdapter()
         recyclerView.adapter = adapter

@@ -17,7 +17,7 @@ import com.example.relaxation.ui.utils.initFirebase
 import com.example.relaxation.ui.utils.initUser
 
 class SearchPersonActivity : AppCompatActivity() {
-    private lateinit var binding : ActivitySearchPersonBinding
+    private lateinit var binding: ActivitySearchPersonBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchPersonBinding.inflate(layoutInflater)
@@ -29,28 +29,25 @@ class SearchPersonActivity : AppCompatActivity() {
         super.onStart()
         binding.searchButton.setOnClickListener {
             val username = binding.editText.text.toString()
-            REF_DATABASE_ROOT.child(NODE_USERNAMES).child(username).get()
-                .addOnCompleteListener { task0 ->
-                    if (task0.isSuccessful) {
-                        val newUID =
-                            REF_DATABASE_ROOT.child(NODE_USERNAMES).child(username).get()
+            REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+                .addListenerForSingleValueEvent(AppValueEventListener {
+                    if (it.hasChild(username)) {
+                        val newUID = REF_DATABASE_ROOT.child(NODE_USERNAMES).child(username).key
                         Log.d("Test", "UID get")
                         REF_DATABASE_ROOT.child(NODE_USERS).child(newUID.toString())
                             .addListenerForSingleValueEvent(AppValueEventListener {
                                 val newUSER = it.getValue(User::class.java) ?: User()
-                                USER.UserList.add(newUSER)
+                                USER.userList.add(newUID, )
                                 REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
-                                    .child(CHILD_USER_LIST).setValue(newUID)
-                                Log.d("Test", "Succes")
+                                    .child(CHILD_USER_LIST).push().setValue(newUID.toString())
+                                Log.d("Test", "Success")
                             })
-                    } else {
-                        Log.d("Test", "Username not exists")
                     }
-                }
+                })
         }
     }
 
-    private fun initFunc(){
+    private fun initFunc() {
         initFirebase()
         initUser()
     }
