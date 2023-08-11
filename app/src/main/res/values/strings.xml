@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Relaxation</string>
+    <string name="confirm_button_text">Confirm</string>
+    <string name="verification_text">На ваш email было отправленно письмо, перейдите по ссылке, которая есть в этом письме для прохождения верификации</string>
+    <string name="check_text">Check</string>
+    <string name="back_text">Back</string>
+    <string name="already_have_an_account"><u>Already have an account?</u></string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_to_registration_text"><u>Back to registration</u></string>
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "444168659986",
+    "firebase_url": "https://relaxationdb-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "relaxationdb",
+    "storage_bucket": "relaxationdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444168659986:android:623639bc9e441ff74c24cb",
+        "android_client_info": {
+          "package_name": "com.example.relaxation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444168659986-h86f7q6tockrbqh8ta5ecavhqs0brc74.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB5YMzTeJS78DmtjeSTUWBJdlNAQ6demE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444168659986-h86f7q6tockrbqh8ta5ecavhqs0brc74.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
