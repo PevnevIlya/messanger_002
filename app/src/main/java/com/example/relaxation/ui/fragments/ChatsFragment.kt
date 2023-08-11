@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.relaxation.R
 import com.example.relaxation.databinding.FragmentChatsBinding
-import com.example.relaxation.databinding.FragmentSingleChatBinding
-import com.example.relaxation.ui.classes.User
 import com.example.relaxation.ui.utils.USER
 import com.example.relaxation.ui.utils.UserAdapter
 
@@ -28,7 +25,8 @@ class ChatsFragment : Fragment() {
     }
 
     private fun init() {
-        val list = USER.userList.toMutableList()
+
+        val list = USER.userList
         recyclerView = binding.recyclerView
         adapter = UserAdapter()
         recyclerView.adapter = adapter

@@ -3,7 +3,6 @@ package com.example.relaxation.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.example.relaxation.databinding.ActivitySearchPersonBinding
 import com.example.relaxation.ui.classes.User
 import com.example.relaxation.ui.utils.AppValueEventListener
@@ -29,17 +28,17 @@ class SearchPersonActivity : AppCompatActivity() {
         super.onStart()
         binding.searchButton.setOnClickListener {
             val username = binding.editText.text.toString()
-            REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+            Log.d("Test", "Onclick")
+            REF_DATABASE_ROOT.child(NODE_USERNAMES)
                 .addListenerForSingleValueEvent(AppValueEventListener {
                     if (it.hasChild(username)) {
                         val newUID = REF_DATABASE_ROOT.child(NODE_USERNAMES).child(username).key
                         Log.d("Test", "UID get")
                         REF_DATABASE_ROOT.child(NODE_USERS).child(newUID.toString())
                             .addListenerForSingleValueEvent(AppValueEventListener {
-                                val newUSER = it.getValue(User::class.java) ?: User()
-                                USER.userList.add(newUID, )
+                                USER.userList += newUID.toString()
                                 REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
-                                    .child(CHILD_USER_LIST).push().setValue(newUID.toString())
+                                    .child(CHILD_USER_LIST).setValue(USER.userList)
                                 Log.d("Test", "Success")
                             })
                     }
