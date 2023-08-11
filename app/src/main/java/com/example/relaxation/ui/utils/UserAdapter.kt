@@ -1,6 +1,7 @@
 package com.example.relaxation.ui.utils
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +30,16 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         val profileNameTextView: TextView = holder.itemView.findViewById(com.example.relaxation.R.id.item_profile_name)
         val profileStateTextView: TextView = holder.itemView.findViewById(com.example.relaxation.R.id.item_profile_state)
         val profileImage: ImageView = holder.itemView.findViewById(com.example.relaxation.R.id.item_profile_image)
-        profileNameTextView.text = REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_NAME).toString()
-        profileNameTextView.text = REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_STATE).toString()
-        Picasso.get().load(REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_PHOTO_URL).toString()).into(profileImage)
+        REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_NAME).addListenerForSingleValueEvent(AppValueEventListener{
+            profileNameTextView.text = it.getValue().toString()
+        })
+        REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_STATE).addListenerForSingleValueEvent(AppValueEventListener{
+            profileStateTextView.text = it.getValue().toString()
+        })
+        REF_DATABASE_ROOT.child(NODE_USERS).child(userList[position]).child(CHILD_PHOTO_URL).addListenerForSingleValueEvent(AppValueEventListener{
+            Picasso.get().load(it.getValue().toString()).into(profileImage)
+        })
+        Log.d("Test", userList[position])
     }
 
     @SuppressLint("NotifyDataSetChanged")
