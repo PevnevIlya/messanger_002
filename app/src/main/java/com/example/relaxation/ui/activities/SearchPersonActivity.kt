@@ -17,6 +17,7 @@ import com.example.relaxation.ui.utils.initUser
 
 class SearchPersonActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchPersonBinding
+    private lateinit var CompanionUser: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchPersonBinding.inflate(layoutInflater)
@@ -30,12 +31,17 @@ class SearchPersonActivity : AppCompatActivity() {
             val username = binding.editText.text.toString()
             Log.d("Test", "Onclick")
             REF_DATABASE_ROOT.child(NODE_USERNAMES)
-                .addListenerForSingleValueEvent(AppValueEventListener {
-                    if (it.hasChild(username)) {
+                .addListenerForSingleValueEvent(AppValueEventListener {task0 ->
+                    if (task0.hasChild(username)) {
                         val newUID = REF_DATABASE_ROOT.child(NODE_USERNAMES).child(username).addListenerForSingleValueEvent(AppValueEventListener{
                             val value = it.getValue(String::class.java)
                             if (value != null) {
                                 val newUID = value
+                                REF_DATABASE_ROOT.child(NODE_USERS).child(newUID)
+                                    .addListenerForSingleValueEvent(AppValueEventListener{task1 ->
+                                        CompanionUser = task1.getValue(User::class.java) ?: User()
+                                        Log.d("Test", "User initialized")
+                                    })
                                 Log.d("Test", newUID.toString())
                                 Log.d("Test", "UID get")
                                 REF_DATABASE_ROOT.child(NODE_USERS).child(newUID.toString())
@@ -43,6 +49,9 @@ class SearchPersonActivity : AppCompatActivity() {
                                         USER.userList += newUID.toString()
                                         REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
                                             .child(CHILD_USER_LIST).setValue(USER.userList)
+                                        CompanionUser.userList += UID.toString()
+                                        REF_DATABASE_ROOT.child(NODE_USERS).child(newUID)
+                                            .child(CHILD_USER_LIST).setValue(CompanionUser.userList)
                                         Log.d("Test", "Success")
                                     })
                             }
@@ -54,7 +63,7 @@ class SearchPersonActivity : AppCompatActivity() {
 
     private fun initFunc() {
         initFirebase()
-        initUser()
+        initUser{ }
     }
 }
 

@@ -27,6 +27,7 @@ import com.example.relaxation.ui.utils.REF_STORAGE_ROOT
 import com.example.relaxation.ui.utils.UID
 import com.example.relaxation.ui.utils.USER
 import com.example.relaxation.ui.utils.auth
+import com.example.relaxation.ui.utils.initUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -55,6 +56,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initFunc(){
+        initUser{}
         binding.nameTv.text = USER.name
         binding.bioTv.text = USER.bio
         binding.stateTv.text = USER.state

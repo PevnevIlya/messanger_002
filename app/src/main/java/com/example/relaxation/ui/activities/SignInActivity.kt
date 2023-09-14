@@ -45,8 +45,8 @@ class SignInActivity : AppCompatActivity() {
                 binding.repeatPasswordLayout.helperText = "Repeat your password correctly!"
                 return@setOnClickListener
             }
-            var email = binding.emailEdit.text.toString().trim()
-            val password = binding.emailEdit.text.toString().trim()
+            val email = binding.emailEdit.text.toString().trim()
+            val password = binding.passwordEdit.text.toString().trim()
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
                 startActivity(Intent(this, MainActivity::class.java))

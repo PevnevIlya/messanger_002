@@ -36,7 +36,6 @@ class ChangeInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeInfoBinding.inflate(layoutInflater)
-        initFirebase()
         initFunc()
         Log.d("Test",USER.name)
         binding.profileImage.setOnClickListener{
@@ -115,6 +114,7 @@ class ChangeInfoActivity : AppCompatActivity() {
     }
 
     private fun initFunc(){
+        initFirebase()
         binding.nameEdit.setText(USER.name)
         binding.bioEdit.setText(USER.bio)
         Picasso.get().load(USER.photoUrl).into(binding.profileImage)

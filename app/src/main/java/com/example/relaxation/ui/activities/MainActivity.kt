@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -40,23 +42,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFunc()
-        Log.d("Test", "onCreate")
         APP_ACTIVITY = this
+        Log.d("Test", "onCreate")
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.bottomNavigation.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.Profile -> replaceFragment(ProfileFragment)
                 R.id.Messanger -> replaceFragment(ChatsFragment)
                 R.id.Settings -> replaceFragment(SettingsFragment)
 
-                else ->{
+                else -> {
 
                 }
             }
             true
         }
-
         setContentView(binding.root)
+
     }
 
     override fun onStart() {
@@ -71,7 +73,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFunc(){
         initFirebase()
-        initUser()
+        initUser{ USER ->
+            replaceFragment(ChatsFragment)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

@@ -6,7 +6,3 @@ import com.example.relaxation.ui.activities.MainActivity
 import java.text.FieldPosition
 
 lateinit var APP_ACTIVITY: MainActivity
-
-fun OnItemClick(position: Int){
-
-}

@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.relaxation.databinding.FragmentChatsBinding
 import com.example.relaxation.ui.utils.USER
 import com.example.relaxation.ui.utils.UserAdapter
+import com.example.relaxation.ui.utils.initUser
+import kotlinx.coroutines.runBlocking
+
 
 class ChatsFragment : Fragment() {
 
@@ -25,14 +28,14 @@ class ChatsFragment : Fragment() {
     }
 
     private fun init() {
-        val list = USER.userList
-        recyclerView = binding.recyclerView
-        adapter = UserAdapter()
-        recyclerView.adapter = adapter
-        adapter.setList(list)
+        runBlocking {
+            initUser{}
+            val list = USER.userList
+            recyclerView = binding.recyclerView
+            adapter = UserAdapter()
+            recyclerView.adapter = adapter
+            adapter.setList(list)
+        }
     }
 
-    public fun OnItemClick(){
-        
-    }
 }

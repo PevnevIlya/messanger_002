@@ -1,8 +1,8 @@
 package com.example.relaxation.ui.classes
 
  data class Message(
-     val messageID: String = "",
-     val senderID: String = "",
-     val text: String = "",
-     val time: String
+     var messageID: String = "",
+     var senderID: String = "",
+     var text: String = "",
+     var time: String = ""
  )
